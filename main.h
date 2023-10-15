@@ -1,10 +1,12 @@
-#ifndef MY_HEADER_H
-#define MY_HEADER_H
+#ifndef PRINTF_H
+#define PRINTF_H
+
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <limits.h>
 
 #define OUTPUT_BUF_SIZE 1024
 #define BUF_FLUSH -1
@@ -17,7 +19,7 @@
 #define CONVERT_UNSIGNED 2
 
 /**
- * paraneters - a structure
+ * struct paraneters - a structure
  * @ unsign: unsigned int 
  * @ plus_flag: unsigned int 
  * @ space_flage: unsigned int 
