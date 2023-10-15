@@ -1,51 +1,45 @@
 #include "main.h"
 
 /**
- * _printf - calculates the number of characters printed
- * @format:  is a character string to be printed
- *
- * Return:  the number of characters printed
+ * _printf - a function that produces output according to a format.
+ * @format: pointer to a string
+ * Return: the number of characters printed
  * (excluding the null byte used to end output to strings)
  */
 
 int _printf(const char *format, ...)
-{
-	int sum = 0;
-	char *buffer, *str;
-	va_list allargs;
-	params_t params = PARAMS_INIT;
+{	va_list args;
+	va_start(args, format);
 
-	va_start(allargs, format);
+	int count = 0, i; /*keep the tracking on the number of Characters*/
 
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
-	for (buffer = (char *)format; *buffer; buffer++)
+	for (int i = 0; format[i] != '\0'; i++)
 	{
-		init_params(&params, allargs);
-		if (*buffer != '%')
-		{
-			sum += _putchar(*buffer);
-			continue;
+		if (format[i] == '%')
+		{	i++; /*move past '%'*/
+
+			if (format[i] == 'c')
+			{	int c = va_arg(args, int);
+
+				putchar(c);
+				count++; }
+			else if (format[i] == 's')
+			{	char *s = va_arg(args, char *);
+
+				while (*s != '\0')
+				{
+					putchar(*s);
+					s++;
+					count++; }
+			}
+			else if (format[i] == '%')
+			{	putchar('%');
+				count++; }
 		}
-		str = buffer;
-		buffer++;
-		while (get_flag(buffer, &params))
-		{
-			buffer++
-		}
-		buffer = get_width(buffer, &params, allargs);
-		buffer = get_precision(buffer, &params, allargs);
-		if (get_modifier(buffer, &params))
-			buffer++;
-		if (!get_specifier(buffer))
-			sum += print_form_to(str, buffer,
-					params.1_modifier || params.h_modifier ? buffer - 1 : 0);
 		else
-			sum += get_print_func(buffer, allargs, &params);
+		{	putchar(format[i]);
+			count++; }
 	}
-	_putchar(BUF_FLUSH);
-	va_end(allargs);
-	return (sum);
+	va_end(args);
+	return (count);
 }
