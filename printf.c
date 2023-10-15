@@ -10,41 +10,42 @@
 
 int _printf(const char *format, ...)
 {
-	int i, j, k, lenStr, BytesNum = 0,  lenFormat = strlen(format);
-	char *buffer, *str;
+	int i, lenStr, BytesNum = 0;
+	char *str, c;
 	va_list allargs;
 
 	if (format == NULL)
 		return (-1);
 	va_start(allargs, format);
-	buffer = (char *)malloc(lenFormat + 1);
-	if (buffer == NULL)
-		exit(98);
 	i = 0;
-	k = 0;
-	while (format[i] != '\0')
+	while (*(format + i))
 	{
 		if (format[i] == '%')
 		{
 			i = i + 1;
+			if (format[i] == '\0')
+				break;
 			switch (format[i])
 			{
 				case 'c':
-					buffer[k] = va_arg(allargs, int);
-					k++;
+					c = va_arg(allargs, int);
+					write(1, &c, 1);
+					BytesNum++;
 					break;
 				case 's':
-					str	 = va_arg(allargs, char*);
+					str = va_arg(allargs, char*);
 					lenStr = strlen(str);
-					for (j = k; j < (lenStr + k); j++)
-					{
-						buffer[k] = str[j - k];
-						k++; }
+					write(1, str, lenStr);
+					BytesNum += lenStr;
 					break;
 				case '%':
-					buffer[k] = va_arg(allargs, int);
-					k++;
-					break; } } }
+					write(1, &format[i], 1);
+					BytesNum++;
+					break; } }
+		else
+		{
+			write(1, &format[i], 1);
+			BytesNum++; }
+		i++; }
 	va_end(allargs);
-	BytesNum = write(1, buffer, strlen(buffer));
 	return (BytesNum); }
