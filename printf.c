@@ -37,7 +37,7 @@ int _printf(const char *format, ...)
 		}
 		buffer = get_width(buffer, &params, allargs);
 		buffer = get_precision(buffer, &params, allargs);
-		if (get_modifier(buffer & params))
+		if (get_modifier(buffer, &params))
 			buffer++;
 		if (!get_specifier(buffer))
 			sum += print_form_to(str, buffer,
