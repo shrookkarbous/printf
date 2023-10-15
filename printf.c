@@ -33,8 +33,6 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					str = va_arg(allargs, char*);
-					if (str == NULL)
-						return (-1);
 					lenStr = strlen(str);
 					write(1, str, lenStr);
 					BytesNum += lenStr;
@@ -44,8 +42,7 @@ int _printf(const char *format, ...)
 					BytesNum++;
 					break;
 				default:
-					return (-1);
-					break;	} }
+					return (-1); } }
 		else
 		{
 			write(1, &format[i], 1);
