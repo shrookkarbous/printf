@@ -40,9 +40,6 @@ int _printf(const char *format, ...)
 				case '%':
 					write(1, &format[i], 1);
 					BytesNum++;
-					break;
-				default:
-					write(1, &format[i--], 1);
 					break; } }
 		else
 		{
