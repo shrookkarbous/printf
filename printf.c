@@ -42,7 +42,8 @@ int _printf(const char *format, ...)
 					BytesNum++;
 					break;
 				default:
-					return (-1); } }
+					write(1, &format[i--], 1);
+					break; } }
 		else
 		{
 			write(1, &format[i], 1);
