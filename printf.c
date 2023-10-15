@@ -10,41 +10,42 @@
 
 int _printf(const char *format, ...)
 {
-	int i, j, k, lenStr, BytesNum = 0,  lenFormat = strlen(format);
+	int sum = 0;
 	char *buffer, *str;
 	va_list allargs;
+	params_t params = PARAMS_INIT;
 
-	if (format == NULL)
-		return (-1);
 	va_start(allargs, format);
-	buffer = (char *)malloc(lenFormat + 1);
-	if (buffer == NULL)
-		exit(98);
-	i = 0;
-	k = 0;
-	while (format[i] != '\0')
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (buffer = (char *)format; *buffer; buffer++)
 	{
-		if (format[i] == '%')
+		init_params(&params, allargs);
+		if (*buffer != '%')
 		{
-			i = i + 1;
-			switch (format[i])
-			{
-				case 'c':
-					buffer[k] = va_arg(allargs, int);
-					k++;
-					break;
-				case 's':
-					str	 = va_arg(allargs, char*);
-					lenStr = strlen(str);
-					for (j = k; j < (lenStr + k); j++)
-					{
-						buffer[k] = str[j - k];
-						k++; }
-					break;
-				case '%':
-					buffer[k] = va_arg(allargs, int);
-					k++;
-					break; } } }
+			sum += _putchar(*buffer);
+			continue;
+		}
+		str = buffer;
+		buffer++;
+		while (get_flag(buffer, &params))
+		{
+			buffer++
+		}
+		buffer = get_width(buffer, &params, allargs);
+		buffer = get_precision(buffer, &params, allargs);
+		if (get_modifier(buffer & params))
+			buffer++;
+		if (!get_specifier(buffer))
+			sum += print_form_to(str, buffer,
+					params.1_modifier || params.h_modifier ? buffer - 1 : 0);
+		else
+			sum += get_print_func(buffer, allargs, &params);
+	}
+	_putchar(BUF_FLUSH);
 	va_end(allargs);
-	BytesNum = write(1, buffer, strlen(buffer));
-	return (BytesNum); }
+	return (sum);
+}
