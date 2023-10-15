@@ -49,7 +49,7 @@ typede struct parameters
 } params_t;
 
 /**
- * specifier: a structure
+ * struct specifier: a structure
  * @specifier: format structure
  * @f: a function
  */
@@ -66,7 +66,7 @@ int _putchar(int c);
 
 /* printf.c module*/
 int _printf(const char *format, ...);
-int print_char(va_list ap, params_t *params);
+int print_char(va_list allargs, params_t *params);
 int print_int(va_list allargs, params_t *params);
 int print_string(va_list allargs, params_t *params);
 int print_percent(va_list allargs, params_t *params);
