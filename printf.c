@@ -10,13 +10,16 @@
 
 int _printf(const char *format, ...)
 {
-	int i, j, k, lenStr, lenFormat = strlen(format);
+	int i, j, k, lenStr, BytesNum = 0,  lenFormat = strlen(format);
 	char *buffer, *str;
 	va_list allargs;
 
+	if (format == NULL)
+		return (-1);
+	va_start(allargs, format);
 	buffer = (char *)malloc(lenFormat + 1);
 	if (buffer == NULL)
-		exit(98); //indicating memory allocation failure
+		exit(98);
 	i = 0;
 	k = 0;
 	while (format[i] != '\0')
@@ -31,20 +34,17 @@ int _printf(const char *format, ...)
 					k++;
 					break;
 				case 's':
-					str = va_arg(allargs, char*);
+					str	 = va_arg(allargs, char*);
 					lenStr = strlen(str);
 					for (j = k; j < (lenStr + k); j++)
 					{
 						buffer[k] = str[j - k];
-						k++;
-					}
+						k++; }
 					break;
 				case '%':
-					buffer[k] = av_arg(allargs, int);
+					buffer[k] = va_arg(allargs, int);
 					k++;
-					break;
-			}
-		}
-
-	}
-}
+					break; } } }
+	va_end(allargs);
+	BytesNum = write(1, buffer, strlen(buffer));
+	return (BytesNum); }
