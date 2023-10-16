@@ -22,7 +22,8 @@ int _printf(const char *format, ...)
 		{
 			i = i + 1;
 			if (format[i] == '\0')
-				break;
+			{	BytesNum += _putchar('%');
+				break; }
 			switch (format[i])
 			{
 				case 'c':
