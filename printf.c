@@ -32,7 +32,7 @@ int _printf(const char *format, ...)
 					BytesNum += print_string(allargs);
 					break;
 				case '%':
-					BytesNum += print_char(allargs);
+					BytesNum += _putchar(format[i]);
 					break; } }
 		else
 		{
