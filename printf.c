@@ -37,6 +37,9 @@ int _printf(const char *format, ...)
 				case 'i':
 					BytesNum += print_int(allargs);
 					break;
+				case 'd':
+					BytesNum += print_int(allargs);
+					break;
 				default:
 					BytesNum += _putchar(format[i--]);
 					BytesNum += _putchar(format[i++]); }}
