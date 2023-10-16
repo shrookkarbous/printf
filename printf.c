@@ -33,7 +33,9 @@ int _printf(const char *format, ...)
 					break;
 				case '%':
 					BytesNum += _putchar(format[i]);
-					break; } }
+					break;
+		       		default:
+					BytesNum += _putchar(format[i]); }}
 		else
 		{
 			BytesNum += _putchar(format[i]); }
