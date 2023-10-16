@@ -41,8 +41,8 @@ int _printf(const char *format, ...)
 					BytesNum += print_int(allargs);
 					break;
 				default:
-					BytesNum += _putchar(format[i--]);
-					BytesNum += _putchar(format[i++]); }}
+					BytesNum += _putchar(format[--i]);
+					BytesNum += _putchar(format[++i]); }}
 		else
 		{
 			BytesNum += _putchar(format[i]); }
