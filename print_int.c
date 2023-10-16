@@ -12,7 +12,7 @@ int print_int(va_list args)
 	int count = 0, digit, reverse = 0, num;
 	char charDigit;
 
-	num = va_arg(args, int);
+	num = (int)va_arg(args, int);
 	if (num < 0)
 	{
 		count += _putchar('-');
