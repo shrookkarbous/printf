@@ -10,8 +10,7 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, lenStr, BytesNum = 0;
-	char *str, c;
+	int i = 0, BytesNum = 0;
 	va_list allargs;
 
 	if (format == NULL)
@@ -27,24 +26,17 @@ int _printf(const char *format, ...)
 			switch (format[i])
 			{
 				case 'c':
-					c = va_arg(allargs, int);
-					write(1, &c, 1);
-					BytesNum++;
+					BytesNum += print_char(allargs);
 					break;
 				case 's':
-					str = va_arg(allargs, char*);
-					lenStr = strlen(str);
-					write(1, str, lenStr);
-					BytesNum += lenStr;
+					BytesNum += print_string(allargs);
 					break;
 				case '%':
-					write(1, &format[i], 1);
-					BytesNum++;
+					BytesNum += print_char(allargs);
 					break; } }
 		else
 		{
-			write(1, &format[i], 1);
-			BytesNum++; }
+			BytesNum += _putchar(format[i]); }
 		i++; }
 	va_end(allargs);
 	return (BytesNum); }
