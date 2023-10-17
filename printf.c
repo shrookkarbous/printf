@@ -16,7 +16,7 @@ int _printf(const char *format, ...)
 	if (format == NULL)
 		return (-1);
 	va_start(allargs, format);
-	while (*(format + i))
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
@@ -29,13 +29,13 @@ int _printf(const char *format, ...)
 			else if (format[i] == 's')
 				BytesNum += print_string(allargs);
 			else if (format[i] == '%')
-				BytesNum += _putchar(format[i]);
+				BytesNum += _putchar('%');
 			else if (format[i] == 'i' || format[i] == 'd')
 				BytesNum += print_int(allargs);
 			else
 			{
-				BytesNum += _putchar(format[--i]);
-				BytesNum += _putchar(format[++i]); }}
+				BytesNum += _putchar('%');
+				BytesNum += _putchar(format[i]); }}
 		else
 			BytesNum += _putchar(format[i]);
 		i++; }
