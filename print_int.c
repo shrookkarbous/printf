@@ -31,6 +31,7 @@ int print_int(va_list args)
 		digit = num / divisor;
 		count += _putchar('0' + digit);
 		num %= divisor;
-		numDigits--; }
+		numDigits--;
+	}
 	return (count);
 }
