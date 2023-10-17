@@ -10,7 +10,7 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, BytesNum = 0;
+	int i = 0, BytesNum = 0, num;
 	va_list allargs;
 
 	if (format == NULL)
@@ -18,9 +18,8 @@ int _printf(const char *format, ...)
 	va_start(allargs, format);
 	while (*(format + i))
 	{
-		if (format[i] == '%')
+		if (format[i++] == '%')
 		{
-			i = i + 1;
 			if (format[i] == '\0')
 			{	va_end(allargs);
 				return (-1); }
@@ -36,17 +35,18 @@ int _printf(const char *format, ...)
 					BytesNum += _putchar(format[i]);
 					break;
 				case 'i':
-					BytesNum += print_int(allargs);
+					num = va_arg(allargs, int);
+					BytesNum += print_int(num);
 					break;
 				case 'd':
-					BytesNum += print_int(allargs);
+					num = va_arg(allargs, int);
+					BytesNum += print_int(num);
 					break;
 				default:
 					BytesNum += _putchar(format[--i]);
 					BytesNum += _putchar(format[++i]); }}
 		else
-		{
-			BytesNum += _putchar(format[i]); }
+			BytesNum += _putchar(format[i]);
 		i++; }
 	va_end(allargs);
 	return (BytesNum); }
