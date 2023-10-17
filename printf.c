@@ -10,7 +10,7 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, BytesNum = 0, num;
+	int i = 0, BytesNum = 0;
 	va_list allargs;
 
 	if (format == NULL)
@@ -31,9 +31,7 @@ int _printf(const char *format, ...)
 			else if (format[i] == '%')
 				BytesNum += _putchar(format[i]);
 			else if (format[i] == 'i' || format[i] == 'd')
-			{
-				num = va_arg(allargs, int);
-				BytesNum += print_int(num); }
+				BytesNum += print_int(allargs);
 			else
 			{
 				BytesNum += _putchar(format[--i]);

@@ -20,7 +20,7 @@ int print_string(va_list args)
 	}
 	else
 	{
-		StrLen = strlen(str);
+StrLen = strlen(str);
 	}
 	for (i = 0; i < StrLen; i++)
 		_putchar(str[i]);
