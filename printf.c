@@ -32,7 +32,6 @@ int _printf(const char *format, ...)
 				BytesNum += _putchar(format[i]);
 			else if (format[i] == 'i' || format[i] == 'd')
 				BytesNum += print_int(allargs);
-			d = va_arg(allargs, int);
 			else
 			{
 				BytesNum += _putchar(format[--i]);
