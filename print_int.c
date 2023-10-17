@@ -20,6 +20,6 @@ int print_int(int num)
 	{
 		print_int(num / 10);
 	}
-	count += _putchar('0' + (n % 10));
+	count += _putchar('0' + (num % 10));
 	return (count);
 }
